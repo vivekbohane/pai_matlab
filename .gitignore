@@ -1,0 +1,16 @@
+# Ignore everything
+*
+
+# Allow directory traversal
+!*/
+
+# Keep only these file types
+!*.m
+!*.py
+!*.ipynb
+!*.gitignore
+
+# Ignore specific folders completely
+data/
+results/
+temp/
