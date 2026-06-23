@@ -2,7 +2,7 @@
 clear; close all; clc;
 
 %% N Photons
-cfg.nphoton = 1e8;              % 1 million photons
+cfg.nphoton = 1e6;              % 1 million photons
 
 %% Define Volume
 Nx = 256; Ny = 256; Nz = 256+2;
@@ -10,13 +10,15 @@ cfg.unitinmm = 0.1; % 0.1mm voxel dimention
 
 vol = uint8(ones(Nx,Ny,Nz));
 
-vol(30:34,20:70,25:28)   = 2;
-vol(40:43,40:62,50:53)   = 2;
-vol(60:63,60:85,75:78)   = 2;
-vol(80:83,55:90,95:100)   = 2;
-% vol(95:98, 94:98,20:80)   = 2;
+vol(30:33,10:246,25:28)   = 2;
+vol(50:53,10:246,50:53)   = 2;
+vol(80:83,10:246,75:78)   = 2;
+vol(100:103,10:246,95:98)   = 2;
+vol(150:153,10:246,140:143)   = 2;
+vol(190:193,10:246,190:193)   = 2;
+vol(230:233,10:246,230:233)   = 2;
 
-vol(:,:,1:5) = 0; % For realism, reserve a few voxels at the top as air. keeping 5 voxels as air
+vol(:,:,1:2) = 0; % For realism, reserve a few voxels at the top as air. keeping 5 voxels as air
 
 cfg.vol = vol;
 
@@ -44,13 +46,14 @@ cfg.prop = [
 cfg.isreflect = 1; % Enable Fresnel reflection
 cfg.isspecular = 1; 
 
+cfg.outputtype = 'energy';
 
 % 3D Plot
-% voxelPlot(double(vol));
+voxelPlot(double(vol));
 
 %% See the specific cross section
 % figure;
-% imagesc(squeeze(vol(:,45,:))');
+% imagesc(squeeze(vol(:,64,:))');
 % axis image;
 % colormap(gray);
 % colorbar;
@@ -63,21 +66,36 @@ cfg.srctype = 'planar';
 % cfg.srcparam1
 % cfg.srcparam2
 
-cfg.srcpos    = [20 63 1];
-
-cfg.srcparam1 = [80 0 0 0];
-cfg.srcparam2 = [0 2 0 0];
+cfg.srcpos    = [64 128 1];
+cfg.srcparam1 = [128 0 0 0]; % x
+cfg.srcparam2 = [0 1 0 0]; % y
 
 cfg.srcdir    = [0 0 1];
 
-%%
+%% Time
+%% Time
 cfg.tstart = 0;
-cfg.tstep  = 1e-10;
-cfg.tend   = 1e-8;
+cfg.tstep  = 1e-9;
+cfg.tend   = 1e-9;
+
 %%
+diary('mcx_01_log.txt');
 tic
 fluence = mcxlab(cfg);
-tac
+toc
+diary off;
 
-cwfluence = sum(fluence.data,4);
-log_cwf = log10(cwfluence);
+% Absorbed optical energy density
+H = squeeze(fluence.data);
+
+% Log visualization
+Hlog = log10(H + 1e-12);
+
+% save the complete workspace variables to a .mat file
+save('mcx_01_workspace.mat');
+
+%% Visualize the results
+figure;
+imagesc(squeeze(H(:,128,:))');
+axis image;
+colormap(hot);
