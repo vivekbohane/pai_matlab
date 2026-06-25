@@ -19,7 +19,7 @@ medium.alpha_power = 1.5;
 
 source.p0 = zeros(Nx,Ny,Nz);
 
-source.p0(330:350,230:240,330:340) = 3 ;
+source.p0(130:150,130:140,30:40) = 3 ;
 % source.p0(30:100,60:62,30:32) = 3 ;
 % source.p0(30:100,90:92,30:32) = 3 ;
 % 
@@ -37,7 +37,7 @@ source.p0(330:350,230:240,330:340) = 3 ;
 
 % voxelPlot(source.p0);
 % title('Initial Pressure Distribution (Pa)', 'FontSize', 15);
-volshow(source.p0);
+% volshow(source.p0);
 %% 4. Define Sensor Array
 
 sensor.mask = zeros(Nx,Ny,Nz);
@@ -46,13 +46,8 @@ sensor.mask(:,:,end) = 1;
 
 % voxelPlot(sensor.mask);
 % title('Sensor Mask', 'FontSize', 15);
-volshow(sensor.mask);
-%% Plot Source and Sensor in Same Voxel Plot
-
-% plot the simulation layout using voxelplot
-% voxelPlot(double(source.p0 |  sensor.mask));
-% title("Sensor and Source",  'FontSize', 15);
-% view([50, 20]);
+% volshow(sensor.mask);
+% volshow(source.p0 | sensor.mask);
 
 %% 5. Create Time Array
 
@@ -60,15 +55,15 @@ kgrid.makeTime(medium.sound_speed);
 
 %% 6. Run Forward Simulation
 
-arg_pml = {'PMLInside',false,'PlotPML',false,'PMLAlpha',2,'PMLSize',20 };
+arg_pml = {'PMLInside',false,'PlotPML',false,'PMLAlpha',2,'PMLSize',32 };
 % arg_plot = {'PlotSim',true,'PlotFreq', 10,'PlotLayout',true};
 arg_plot = {'PlotLayout',true};
-arg_movie = {'RecordMovie', false,'MovieProfile', 'MPEG-4', 'MovieName','PAI_sim_001'};
+arg_movie = {'RecordMovie', false,'MovieProfile', 'MPEG-4', 'MovieName','kwave_02_dev_mov'};
 %  source.p0, medium.sound_speed, and medium.density (default = [true, false, false])
 arg_input = {'Smooth', [true,true,true], 'DataCast', 'gpuArray-single', 'CartInterp', 'linear'};
 %  'CartInterp', 'nearest' 
 
-% kspaceFirstOrder2D(kgrid, medium, source, sensor, 'SaveToDisk', 'PAI_init_001');
+% kspaceFirstOrder2D(kgrid, medium, source, sensor, 'SaveToDisk', 'kwave_02_dev_init');
 sensor_data = kspaceFirstOrder3D(kgrid, medium, source, sensor, ...
                          arg_pml{:},arg_plot{:},arg_movie{:},arg_input{:});
 % sensor_data(sensor_point_index, time_index)

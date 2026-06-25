@@ -25,7 +25,7 @@ vol = uint8(ones(Nx,Ny,Nz));
 thickness = 12;
 
 % 8 uniformly spaced X positions
-xpos = round(linspace(20, Nx-thickness-20, 8));
+xpos = round(linspace(30, Nx-thickness-30, 6));
 
 % 6 uniformly spaced Z positions
 zpos = round(linspace(30, Nz-thickness-30, 6));
@@ -39,14 +39,14 @@ zpos = round(linspace(30, Nz-thickness-30, 6));
 for kz = 1:6
 
     if mod(kz,2)==1
-        xorder = 1:8;      % left -> right
+        xorder = 1:6;      % left -> right
     else
-        xorder = 8:-1:1;   % right -> left
+        xorder = 6:-1:1;   % right -> left
     end
 
     z = zpos(kz);
 
-    for kx = 1:8
+    for kx = 1:6
 
         x = xpos(xorder(kx));
 
@@ -101,6 +101,6 @@ save('mcx_05_workspace.mat','-regexp','^(?!fluence$).')
 % volumeViewer(Hlog);
 
 % figure;
-% imagesc(squeeze(H(:,57,:)));
-% axis image;
-% colormap(hot); colorbar;
+imagesc(squeeze(H(:,250,:)));
+axis image;
+colormap(hot); colorbar;
