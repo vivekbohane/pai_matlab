@@ -52,10 +52,10 @@ medium.alpha_power = 1.5;
 % DEFINE THE ULTRASOUND TRANSDUCER
 
 % physical properties of the transducer
-transducer.number_elements = 128;    % total number of transducer elements
-transducer.element_width = 2;       % width of each element [grid points/voxels]
-transducer.element_spacing = 1;     % spacing (kerf  width) between the elements [grid points/voxels]
-transducer.element_length = 40;     % length of each element [grid points/voxels]
+transducer.number_elements = 384;    % total number of transducer elements
+transducer.element_width = 1;       % width of each element [grid points/voxels]
+transducer.element_spacing = 0;     % spacing (kerf  width) between the elements [grid points/voxels]
+transducer.element_length = 1;     % length of each element [grid points/voxels]
 transducer.radius = inf;            % radius of curvature of the transducer [m]
 % calculate the width of the transducer in grid points
 transducer_width = transducer.number_elements * transducer.element_width ...
@@ -83,19 +83,19 @@ transducer = kWaveTransducer(kgrid, transducer);
 
 %% 5. Run Forward Simulation
 
-arg_pml = {'PMLInside',false,'PlotPML',false,'PMLAlpha',10,'PMLSize',6 };
-arg_plot = {'PlotSim',false,'PlotFreq', 10,'PlotLayout',false};
+arg_pml = {'PMLInside',false,'PlotPML',true,'PMLAlpha',10,'PMLSize',6 };
+arg_plot = {'PlotSim',true,'PlotFreq', 10,'PlotLayout',false};
 % arg_plot = {'PlotLayout',false};
-arg_movie = {'RecordMovie', false,'MovieProfile', 'MPEG-4', 'MovieName','sim_02_dev_movie'};
+arg_movie = {'RecordMovie', true,'MovieProfile', 'MPEG-4', 'MovieName','sim_02_dev_movie'};
 %  source.p0, medium.sound_speed, and medium.density (default = [true, false, false])
 arg_input = {'Smooth', [true,true,true], 'DataCast', 'gpuArray-single', 'CartInterp', 'linear'};
 %  'CartInterp', 'nearest' 
 
-diary('sim_03_ppp_log.txt')
+diary('sim_03b_ppp_log.txt')
 % kspaceFirstOrder2D(kgrid, medium, source, sensor, 'SaveToDisk', 'PAI_init_001');
 % sensor_data_savetodisk = kspaceFirstOrder3D(kgrid, medium, source, transducer, ...
 %                          arg_pml{:},arg_plot{:},arg_movie{:},arg_input{:}, ...
-%                          'SaveToDisk', 'sim_03_ppp');
+%                          'SaveToDisk', 'sim_03b_ppp');
 sensor_data = kspaceFirstOrder3D(kgrid, medium, source, transducer, ...
                          arg_pml{:},arg_plot{:},arg_movie{:},arg_input{:});
 % sensor_data(sensor_point_index, time_index)
@@ -104,7 +104,7 @@ diary off
 sensor_data = gather(sensor_data);
 
 % save the recorded sensor data as .mat file
-save('sim_03_ppp_sensor_data.mat','sensor_data');
+save('sim_03b_ppp_sensor_data.mat','sensor_data');
 
 %%
 % 1. Get the number of time steps (your 740)
@@ -122,4 +122,4 @@ save('sim_03_ppp_sensor_data.mat','sensor_data');
 % sensor_data_250 = squeeze(sensor_data_3D(:,250,:))';
 
 %% Save the worksapce
-save('sim_03_ppp_workspace.mat');
+save('sim_03b_ppp_workspace.mat');
