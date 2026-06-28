@@ -1,21 +1,20 @@
-% %% DAS Reconstruction
+% %% DMAS Reconstruction
 % 
-clear;
-clc;
-close all;
+% clear;
+% clc;
+% close all;
 % 
 % %% Load workspace
 % 
-load('C:\Users\Partha\Documents\vivekbohane\pai_matlab\mcx_kwave\sim_03_ppp_01\sim_03_ppp_workspace.mat');
+% load('C:\Users\vsb27\Downloads\IIT_H_Files\PAI\Matlab_Codes\kwave_codes\PAI_workspace.mat');
 
 %% Parameters
-% sensor_data = sensor_data_250';
-% Nx = 128 ; dx = 01e-3 ;
 c = 1540;
 Ny = 128; Nx = 370;
 dy = 0.3e-3 ; dx = 0.1e-3;
 [num_sensors, Nt] = size(sensor_data);
 dt = kgrid.dt;
+
 
 % Sensor positions (top boundary)
 sensor_x = zeros(1, Nx);
@@ -27,19 +26,22 @@ y_img = (0:Ny-1) * dy;
 
 recon = zeros(Nx, Ny);
 
-%% DAS
-disp('Starting DAS Reconstruction');
+%% DMAS
+disp('Starting DMAS Reconstruction');
 tic
 
 for ix = 1:Nx
 
     for iy = 1:Ny
 
-        pixel_value = 0;
-
         px = x_img(ix);
         py = y_img(iy);
 
+        delayed = zeros(num_sensors,1);
+
+        % -----------------------------
+        % Delayed signal collection
+        % -----------------------------
         for s = 1:num_sensors
 
             % Distance from pixel to sensor
@@ -49,15 +51,28 @@ for ix = 1:Nx
             t = dist / c;
 
             % Sample index
-            idx = round(t / dt) + 1;
+            idx = round(t/dt) + 1;
 
             if idx >= 1 && idx <= Nt
-                pixel_value = pixel_value + sensor_data(s, idx);
+                delayed(s) = sensor_data(s,idx);
             end
 
         end
 
-        recon(ix,iy) = pixel_value;
+        % -----------------------------
+        % DMAS
+        % -----------------------------
+        value = 0;
+
+        for i = 1:num_sensors-1
+            for j = i+1:num_sensors
+                 prod_ij = delayed(i) * delayed(j);
+                % Apply signed square root
+                value = value + sign(prod_ij) * sqrt(abs(prod_ij));
+            end
+        end
+
+        recon(ix,iy) = value;
 
     end
 
@@ -67,6 +82,7 @@ recon_norm = (recon - min(recon(:))) / (max(recon(:)) - min(recon(:)));
 
 toc
 disp('Reconstruction Complete.');
+
 %% Display 
 
 figure;
@@ -77,4 +93,4 @@ colormap gray;
 % colormap(getColorMap);
 xlabel('Y (mm) - Sensor Line Across Top');
 ylabel('X (mm) - Depth');
-title('DAS Reconstruction', 'FontSize', 14);
+title('DMAS Reconstruction', 'FontSize', 14);
