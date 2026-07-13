@@ -29,7 +29,7 @@ kgrid = kWaveGrid(Nx, dx, Ny, dy, Nz, dz);
 
 kgrid.makeTime(1540);
 % kgrid.makeTime(medium.sound_speed);
-kgrid.Nt = 2400;
+% kgrid.Nt = 2400;
 
 %% 2. Define Medium Properties
 
@@ -77,13 +77,13 @@ run_name = "sim_01_planarSlit";
 arg_pml = {'PMLInside',false,'PlotPML',false,'PMLAlpha',10,'PMLSize',6 };
 arg_plot = {'PlotSim',false,'PlotFreq', 10,'PlotLayout',false};
 % arg_plot = {'PlotLayout',false};
-arg_movie = {'RecordMovie', false,'MovieProfile', 'MPEG-4', 'MovieName',run_name + '_movie'};
+arg_movie = {'RecordMovie', false,'MovieProfile', 'MPEG-4', 'MovieName','movie'};
 %  source.p0, medium.sound_speed, and medium.density (default = [true, false, false])
 arg_input = {'Smooth', [true,true,true], 'DataCast', 'gpuArray-single', 'CartInterp', 'linear'};
 %  'CartInterp', 'nearest' 
 
 diary(run_name + "_log.txt");
-% kspaceFirstOrder2D(kgrid, medium, source, sensor, 'SaveToDisk', 'PAI_init_001');
+
 % sensor_data_savetodisk = kspaceFirstOrder3D(kgrid, medium, source, transducer, ...
 %                          arg_pml{:},arg_plot{:},arg_movie{:},arg_input{:}, ...
 %                          'SaveToDisk', run_name + "_SaveToDisk.h5");
@@ -96,21 +96,6 @@ sensor_data = gather(sensor_data);
 
 % save the recorded sensor data as .mat file
 save(run_name + "_sensor_data.mat","sensor_data");
-
-%%
-% 1. Get the number of time steps (your 740)
-% Nt = size(sensor_data, 2);
-
-% 2. Define your grid dimensions (adjust if your Nx/Ny are different)
-% Nx = 128; 
-% Ny = 128; 
-
-% 3. Reshape the 2D matrix back into a 3D matrix (X, Y, Time)
-% sensor_data_3D = reshape(sensor_data, Nx, Ny, Nt);
-
-%%
-
-% sensor_data_250 = squeeze(sensor_data_3D(:,250,:))';
 
 %% Save the worksapce
 save(run_name + "_workspace.mat");
