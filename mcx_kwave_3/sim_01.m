@@ -95,7 +95,7 @@ diary off
 sensor_data = gather(sensor_data);
 
 % save the recorded sensor data as .mat file
-save(run_name + "_sensor_data.mat","sensor_data");
+% save(run_name + "_sensor_data.mat","sensor_data");
 
 %% Save the worksapce
 save(run_name + "_workspace.mat");

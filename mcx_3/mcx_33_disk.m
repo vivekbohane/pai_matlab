@@ -20,7 +20,7 @@ cfg.prop = [
 
 %% Define Volume
 
-run('vol_type_02_5cros5.m');
+run('vol_type_01_54546.m');
 
 % 3D Plot
 % voxelPlot(double(vol));
@@ -31,26 +31,20 @@ run('vol_type_02_5cros5.m');
 % axis image;
 % colormap(hot); colorbar;
 
-%% Define the source as a Slit
-cfg.srctype = 'slit';
+%% Define the source
+cfg.srctype = 'disk';
 
-% Starting position of the slit (x=0, y=58, z=248)
-cfg.srcpos    = [0 58 248]; 
+% Launch from the x = 0 face, centered in Y and Z
+cfg.srcpos = [0 250 250];
 
-% srcparam1 defines the primary axis (length) of the slit
-% Runs parallel to Y, length of 384 voxels
-cfg.srcparam1 = [0 384 0 0];  
+% Disk radius = 192 voxels
+cfg.srcparam1 = [192 0 0 0];
 
-% Gaussian broadening:
-% x = width perpendicular to the slit (along Z here)
-% y = broadening along the slit length
-cfg.srcparam2 = [5 0 0 0];
-
-% Fires straight into the volume along the X-axis
-cfg.srcdir    = [1 0 0];
+% Propagate along +X
+cfg.srcdir = [1 0 0];
 
 %%
-run_name = "mcx_32_Slit";
+run_name = "mcx_33_disk";
 
 diary(run_name + "_log.txt");
 tic

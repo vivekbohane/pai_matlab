@@ -3,7 +3,7 @@ clear;  clc;
 % close all;
 
 %% N Photons
-cfg.nphoton = 1e6;              % 1 million photons
+cfg.nphoton = 1e8;              % 1 million photons
 
 cfg.unitinmm = 0.1; % 0.1mm voxel dimention
 cfg.isreflect = 1; cfg.isspecular = 1; cfg.outputtype = 'energy';
