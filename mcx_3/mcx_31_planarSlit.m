@@ -43,6 +43,8 @@ cfg.srcparam1 = [0 0 5 0];
 cfg.srcparam2 = [0 384 0 0]; 
 % Fires straight into the volume along the X-axis
 cfg.srcdir    = [1 0 0];
+% Fires on a focused spot.
+% cfg.srcdir    = [1 0 0 10];
 
 %%
 run_name = "mcx_31_planarSlit";

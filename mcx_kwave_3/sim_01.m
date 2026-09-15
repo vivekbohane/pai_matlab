@@ -1,10 +1,10 @@
-%% 
-clear; clc;
-close all;
-
-%% load the data of mcx simulation
-
-load("D:\vivekbohane\pai_matlab\mcx_3\mcx_31_planarSlit_workspace.mat"); 
+% %% 
+% clear; clc;
+% close all;
+% 
+% %% load the data of mcx simulation
+% 
+% load("D:\vivekbohane\pai_matlab\mcx_3\mcx_31_planarSlit_workspace.mat"); 
 
 %% Initial pressure distribution (PA Source)
 Gamma = 0.12 * ones(Nx,Ny,Nz);
@@ -63,6 +63,7 @@ transducer_pos_x = Nx-2;
 transducer_pos_y = round((Ny - transducer_width) / 2);
 % 3. Set Z-position: Center the 40-voxel element length across your 52-voxel Z-axis
 transducer_pos_z = round((Nz - transducer.element_length) / 2);
+% transducer_pos_z = 50;
 
 % Assign the calculated corner position to the object
 transducer.position = [transducer_pos_x, transducer_pos_y, transducer_pos_z];
@@ -72,7 +73,7 @@ transducer = kWaveTransducer(kgrid, transducer);
 
 %% 5. Run Forward Simulation
 
-run_name = "sim_01_planarSlit";
+run_name = "sim_01_33_disk_side_01";
 
 arg_pml = {'PMLInside',false,'PlotPML',false,'PMLAlpha',10,'PMLSize',6 };
 arg_plot = {'PlotSim',false,'PlotFreq', 10,'PlotLayout',false};

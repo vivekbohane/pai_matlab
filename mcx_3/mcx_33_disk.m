@@ -42,6 +42,8 @@ cfg.srcparam1 = [192 0 0 0];
 
 % Propagate along +X
 cfg.srcdir = [1 0 0];
+% Fires on a focused spot.
+% cfg.srcdir    = [1 0 0 10];
 
 %%
 run_name = "mcx_33_disk";

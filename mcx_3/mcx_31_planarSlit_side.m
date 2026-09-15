@@ -32,21 +32,22 @@ run('vol_type_01_54546.m');
 % colormap(hot); colorbar;
 
 %% Define the source
-cfg.srctype = 'gaussian';
+cfg.srctype = 'planar';
+% cfg.srcpos ; cfg.srcdir ; cfg.srcparam1 ; cfg.srcparam2
 
-% Launch from x = 0, centered in Y and Z
-cfg.srcpos = [0 250 250];
-
-% Gaussian waist radius
-cfg.srcparam1 = [192 0 0 0];
-
-% Propagate along +X
-cfg.srcdir = [1 0 0];
+% Starts at x=0, and centered on Y and Z
+cfg.srcpos    = [333 0 0]; 
+% Edge 1: Runs parallel to Z, length of 9
+cfg.srcparam1 = [5 0 0 0];  % along the x axis (height - 372)
+% Edge 2: Runs parallel to Y, length of 384
+cfg.srcparam2 = [0 500 0 0]; 
+% Fires straight into the volume along the X-axis
+cfg.srcdir    = [0 0 1];
 % Fires on a focused spot.
 % cfg.srcdir    = [1 0 0 10];
 
 %%
-run_name = "mcx_34_gaussian";
+run_name = "mcx_31_planarSlit_side";
 
 diary(run_name + "_log.txt");
 tic

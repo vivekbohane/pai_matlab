@@ -32,21 +32,21 @@ run('vol_type_01_54546.m');
 % colormap(hot); colorbar;
 
 %% Define the source
-cfg.srctype = 'gaussian';
+cfg.srctype = 'disk';
 
-% Launch from x = 0, centered in Y and Z
-cfg.srcpos = [0 250 250];
+% Launch from the x = 0 face, centered in Y and Z
+cfg.srcpos = [186  250  0];
 
-% Gaussian waist radius
-cfg.srcparam1 = [192 0 0 0];
+% Disk radius = 192 voxels
+cfg.srcparam1 = [156 0 0 0];
 
 % Propagate along +X
-cfg.srcdir = [1 0 0];
+cfg.srcdir = [0 0 1];
 % Fires on a focused spot.
 % cfg.srcdir    = [1 0 0 10];
 
 %%
-run_name = "mcx_34_gaussian";
+run_name = "mcx_33_disk_side";
 
 diary(run_name + "_log.txt");
 tic

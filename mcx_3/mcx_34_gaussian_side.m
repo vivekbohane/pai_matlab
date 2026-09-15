@@ -35,13 +35,13 @@ run('vol_type_01_54546.m');
 cfg.srctype = 'gaussian';
 
 % Launch from x = 0, centered in Y and Z
-cfg.srcpos = [0 250 250];
+cfg.srcpos = [186  250  0];
 
 % Gaussian waist radius
-cfg.srcparam1 = [192 0 0 0];
+cfg.srcparam1 = [156 0 0 0];
 
 % Propagate along +X
-cfg.srcdir = [1 0 0];
+cfg.srcdir = [0 0 1];
 % Fires on a focused spot.
 % cfg.srcdir    = [1 0 0 10];
 
