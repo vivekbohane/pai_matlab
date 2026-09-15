@@ -46,9 +46,14 @@ cfg.srcdir = [1 0 0];
 % cfg.srcdir    = [1 0 0 10];
 
 %%
-run_name = "mcx_34_gaussian";
+run_name = "mcx_34_gaussian_01_54546_radius_192";
 
 diary(run_name + "_log.txt");
+
+message = "mcx_34_gaussian: Gaussian source, vol_type_01_54546, source radius 192 units at center";
+disp(message);
+
+
 tic
 fluence = mcxlab(cfg);
 toc

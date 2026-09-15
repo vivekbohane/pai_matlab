@@ -46,9 +46,13 @@ cfg.srcdir = [1 0 0];
 % cfg.srcdir    = [1 0 0 10];
 
 %%
-run_name = "mcx_33_disk";
+run_name = "mcx_33_disk_01_54546_radius_192";
 
 diary(run_name + "_log.txt");
+
+message = "mcx_33_disk: Disk source, vol_type_01_54546, source radius 192 units at center";
+disp(message);
+
 tic
 fluence = mcxlab(cfg);
 toc

@@ -36,9 +36,9 @@ cfg.srctype = 'planar';
 % cfg.srcpos ; cfg.srcdir ; cfg.srcparam1 ; cfg.srcparam2
 
 % Starts at x=0, and centered on Y and Z
-cfg.srcpos    = [0 58 248]; 
+cfg.srcpos    = [0 58 245]; 
 % Edge 1: Runs parallel to Z, length of 9
-cfg.srcparam1 = [0 0 5 0];  
+cfg.srcparam1 = [0 0 11 0];  
 % Edge 2: Runs parallel to Y, length of 384
 cfg.srcparam2 = [0 384 0 0]; 
 % Fires straight into the volume along the X-axis
@@ -47,9 +47,13 @@ cfg.srcdir    = [1 0 0];
 % cfg.srcdir    = [1 0 0 10];
 
 %%
-run_name = "mcx_31_planarSlit";
+run_name = "mcx_31_planarSlit_01_54546_width_11_length_384";
 
 diary(run_name + "_log.txt");
+
+message = "mcx_31_planarSlit: Planar slit source, vol_type_01_54546, souce width 11 units, length 384 units at center";
+disp(message);
+
 tic
 fluence = mcxlab(cfg);
 toc

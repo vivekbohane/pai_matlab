@@ -35,7 +35,7 @@ run('vol_type_02_5cros5.m');
 cfg.srctype = 'slit';
 
 % Starting position of the slit (x=0, y=58, z=248)
-cfg.srcpos    = [0 58 248]; 
+cfg.srcpos    = [0 58 245]; 
 
 % srcparam1 defines the primary axis (length) of the slit
 % Runs parallel to Y, length of 384 voxels
@@ -44,7 +44,7 @@ cfg.srcparam1 = [0 384 0 0];
 % Gaussian broadening:
 % x = width perpendicular to the slit (along Z here)
 % y = broadening along the slit length
-cfg.srcparam2 = [5 0 0 0];
+cfg.srcparam2 = [11 0 0 0];
 
 % Fires straight into the volume along the X-axis
 cfg.srcdir    = [1 0 0];
@@ -52,9 +52,13 @@ cfg.srcdir    = [1 0 0];
 % cfg.srcdir    = [1 0 0 10];
 
 %%
-run_name = "mcx_32_Slit";
+run_name = "mcx_32_Slit_01_54546_width_11_length_384";
 
 diary(run_name + "_log.txt");
+
+message = "mcx_32_Slit: Slit source, vol_type_01_54546, source width 11 units, length 384 units at center";
+disp(message);
+
 tic
 fluence = mcxlab(cfg);
 toc
