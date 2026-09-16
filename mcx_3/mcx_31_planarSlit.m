@@ -20,7 +20,7 @@ cfg.prop = [
 
 %% Define Volume
 
-run('vol_type_01_54546.m');
+run('vol_type_02_5cros5.m');
 
 % 3D Plot
 % voxelPlot(double(vol));
@@ -47,11 +47,11 @@ cfg.srcdir    = [1 0 0];
 % cfg.srcdir    = [1 0 0 10];
 
 %%
-run_name = "mcx_31_planarSlit_01_54546_width_11_length_384";
+run_name = "mcx_31_planarSlit_02_5cros5_width_11_length_384";
 
 diary(run_name + "_log.txt");
 
-message = "mcx_31_planarSlit: Planar slit source, vol_type_01_54546, souce width 11 units, length 384 units at center";
+message = "mcx_31_planarSlit: Planar slit source, vol_type_02_5cros5, souce width 11 units, length 384 units at center";
 disp(message);
 
 tic

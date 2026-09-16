@@ -52,11 +52,11 @@ cfg.srcdir    = [1 0 0];
 % cfg.srcdir    = [1 0 0 10];
 
 %%
-run_name = "mcx_32_Slit_01_54546_width_11_length_384";
+run_name = "mcx_32_Slit_02_5cros5_width_11_length_384";
 
 diary(run_name + "_log.txt");
 
-message = "mcx_32_Slit: Slit source, vol_type_01_54546, source width 11 units, length 384 units at center";
+message = "mcx_32_Slit: Slit source, vol_type_02_5cros5, source width 11 units, length 384 units at center";
 disp(message);
 
 tic
