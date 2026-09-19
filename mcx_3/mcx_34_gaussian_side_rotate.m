@@ -3,7 +3,7 @@ clear;  clc;
 % close all;
 
 %% N Photons
-cfg.nphoton = 1e6;              % 1 million photons
+cfg.nphoton = 1e8;              % 1 million photons
 
 cfg.unitinmm = 0.1; % 0.1mm voxel dimention
 cfg.isreflect = 1; cfg.isspecular = 1; cfg.outputtype = 'energy';
@@ -32,22 +32,21 @@ run('vol_type_03_10digo.m');
 % colormap(hot); colorbar;
 
 %% Define the source
-cfg.srctype = 'planar';
-% cfg.srcpos ; cfg.srcdir ; cfg.srcparam1 ; cfg.srcparam2
+cfg.srctype = 'gaussian';
 
-% Starts at x=0, and centered on Y and Z
-cfg.srcpos    = [0 58 0]; 
-% Edge 1: Runs parallel to Z, length of 9
-cfg.srcparam1 = [372 0 0 0];  % along the x axis (height - 372)
-% Edge 2: Runs parallel to Y, length of 384
-cfg.srcparam2 = [0 384 0 0]; 
-% Fires straight into the volume along the X-axis
-cfg.srcdir    = [0 0 1];
+% Launch from x = 0, centered in Y and Z
+cfg.srcpos = [186  0  250];
+
+% Gaussian waist radius
+cfg.srcparam1 = [156 0 0 0];
+
+% Propagate along +X
+cfg.srcdir = [0 1 0];
 % Fires on a focused spot.
 % cfg.srcdir    = [1 0 0 10];
 
 %%
-run_name = "mcx_31_planarSlit_side_02_5cros5_rotate_height_372_width_384";
+run_name = "mcx_34_gaussian_side_rotate_03_10digo_radius_156";
 
 diary(run_name + "_log.txt");
 tic

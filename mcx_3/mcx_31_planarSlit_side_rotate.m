@@ -36,18 +36,18 @@ cfg.srctype = 'planar';
 % cfg.srcpos ; cfg.srcdir ; cfg.srcparam1 ; cfg.srcparam2
 
 % Starts at x=0, and centered on Y and Z
-cfg.srcpos    = [0 58 0]; 
+cfg.srcpos    = [0 0 58]; 
 % Edge 1: Runs parallel to Z, length of 9
 cfg.srcparam1 = [372 0 0 0];  % along the x axis (height - 372)
 % Edge 2: Runs parallel to Y, length of 384
-cfg.srcparam2 = [0 384 0 0]; 
+cfg.srcparam2 = [0 0 384 0]; 
 % Fires straight into the volume along the X-axis
-cfg.srcdir    = [0 0 1];
+cfg.srcdir    = [0 1 0];
 % Fires on a focused spot.
 % cfg.srcdir    = [1 0 0 10];
 
 %%
-run_name = "mcx_31_planarSlit_side_02_5cros5_rotate_height_372_width_384";
+run_name = "mcx_31_planarSlit_side_rotate_03_10digo_height_372_width_384";
 
 diary(run_name + "_log.txt");
 tic
